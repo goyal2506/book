@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { showToast } from "../../utils/toast";
+import { createStandaloneToast } from "@chakra-ui/react";
+const toast = createStandaloneToast();
 
 export const loginUser = createAsyncThunk(
   "login/loginUser",
@@ -12,32 +13,36 @@ export const loginUser = createAsyncThunk(
         { headers: { "Content-Type": "application/json" } }
       );
 
-      showToast.create({
-        type: "success",
+      toast({
         title: "Success",
         description: response.data.message || "Login successful",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+        position: "top",
       });
 
       return response.data;
     } catch (error) {
-      let description = "Something went wrong";
-      if (axios.isAxiosError(error)) {
-        description = error.response?.data?.message || description;
-      }
+      const message = error.response?.data?.message || "Something went wrong";
 
-      showToast.create({
-        type: "warning",
-        title: "Login failed",
-        description,
+      toast({
+        title: "Error",
+        description: message,
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+        position: "top",
       });
 
-      return rejectWithValue(description);
+      return rejectWithValue(message);
     }
   }
 );
 
 const initialState = {
   user: null,
+  token: localStorage.getItem("token") || null,
   loading: false,
   error: null,
 };
@@ -62,7 +67,6 @@ const loginSlice = createSlice({
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload.user;
-        state.token = action.payload.token;
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
