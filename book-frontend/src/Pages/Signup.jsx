@@ -58,9 +58,9 @@ const Signup = () => {
             <Input
               placeholder="Full Name"
               bg="white"
-              {...register("fullName", { required: "Full Name is required" })}
+              {...register("username", { required: "Full Name is required" })}
             />
-            {errors.fullName && <Text color="red.500">{errors.fullName.message}</Text>}
+            {errors.username && <Text color="red.500">{errors.username.message}</Text>}
 
             <Input
               placeholder="Email Address"
