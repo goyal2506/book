@@ -1,36 +1,24 @@
-import { Button, Heading, VStack } from "@chakra-ui/react";
-import { useDispatch, useSelector } from "react-redux";
-import { increment, decrement } from "./slice/counterSlice";
+import { Button, VStack } from "@chakra-ui/react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import Login from "./Pages/Login";
+import Signup from "./Pages/Signup";
 
 function App() {
-  const count = useSelector((state) => state.counter.value);
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
       <Route
         path="/"
         element={
           <VStack spacing={4} mt={10}>
-            <Heading>Counter: {count}</Heading>
-
-            <Button colorScheme="green" onClick={() => dispatch(increment())}>
-              Increment
-            </Button>
-
-            <Button colorScheme="red" onClick={() => dispatch(decrement())}>
-              Decrement
-            </Button>
-
-            <Button
-              colorScheme="blue"
-              onClick={() => navigate("/login")}
-            >
+            <Button colorScheme="blue" onClick={() => navigate("/login")}>
               Login
+            </Button>
+            <Button colorScheme="green" onClick={() => navigate("/signup")}>
+              Sign Up
             </Button>
           </VStack>
         }
@@ -38,6 +26,5 @@ function App() {
     </Routes>
   );
 }
-
 
 export default App;

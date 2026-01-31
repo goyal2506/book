@@ -5,35 +5,34 @@ import {
   Text,
   Input,
   Button,
-  Link,
   VStack,
   Divider,
   Icon,
+  Link,
 } from "@chakra-ui/react";
 import { ViewIcon } from "@chakra-ui/icons";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { loginUser } from "./redux/loginSlice";
 
 const Login = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { loading, error } = useSelector((state) => state.login);
 
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm({
-    mode: "onChange",
-  });
+  } = useForm({ mode: "onChange" });
 
   const onSubmit = (data) => {
-    dispatch(loginUser({email : data.email ,password: data.password}));
+    dispatch(loginUser({ email: data.email, password: data.password }));
   };
 
   return (
     <Flex minH="100vh">
-      {/* Left Image Section */}
       <Box
         flex="1"
         bgImage="url('https://images.unsplash.com/photo-1507842217343-583bb7270b66')"
@@ -49,7 +48,6 @@ const Login = () => {
         </Box>
       </Box>
 
-      {/* Right Form Section */}
       <Flex flex="1" align="center" justify="center" bg="#FAFAF7" px="6">
         <Box w="full" maxW="md">
           <Text fontSize="2xl" fontWeight="bold">
@@ -61,7 +59,7 @@ const Login = () => {
 
           <form onSubmit={handleSubmit(onSubmit)}>
             <VStack spacing="4" align="stretch">
-              {/* Email Input */}
+              {/* Email */}
               <Input
                 placeholder="Email Address"
                 bg="white"
@@ -79,7 +77,6 @@ const Login = () => {
                 </Text>
               )}
 
-              {/* Password Input */}
               <Box position="relative">
                 <Input
                   placeholder="Password"
@@ -106,7 +103,6 @@ const Login = () => {
                 Forgot password?
               </Link>
 
-              {/* Submit Button */}
               <Button
                 colorScheme="green"
                 size="lg"
@@ -128,7 +124,12 @@ const Login = () => {
 
               <Text fontSize="sm" textAlign="center">
                 Don’t have an account?{" "}
-                <Link color="green.500" fontWeight="bold">
+                <Link
+                  color="green.500"
+                  fontWeight="bold"
+                  onClick={() => navigate("/signup")}
+                  style={{ cursor: "pointer" }}
+                >
                   Sign up for free
                 </Link>
               </Text>
