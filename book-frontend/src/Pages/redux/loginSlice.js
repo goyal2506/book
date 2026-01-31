@@ -1,33 +1,50 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { showToast } from "../../utils/toast";
 
 export const loginUser = createAsyncThunk(
   "login/loginUser",
   async ({ email, password }, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "https://example.com/api/login",
+        "http://localhost:8001/user/login",
         { email, password },
         { headers: { "Content-Type": "application/json" } }
       );
 
+      showToast.create({
+        type: "success",
+        title: "Success",
+        description: response.data.message || "Login successful",
+      });
 
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response?.data || "Something went wrong");
+      let description = "Something went wrong";
+      if (axios.isAxiosError(error)) {
+        description = error.response?.data?.message || description;
+      }
+
+      showToast.create({
+        type: "warning",
+        title: "Login failed",
+        description,
+      });
+
+      return rejectWithValue(description);
     }
   }
 );
 
+const initialState = {
+  user: null,
+  loading: false,
+  error: null,
+};
 
 const loginSlice = createSlice({
   name: "login",
-  initialState: {
-    user: null,
-    token: localStorage.getItem("token") || null,
-    loading: false,
-    error: null,
-  },
+  initialState,
   reducers: {
     logout: (state) => {
       state.user = null;
