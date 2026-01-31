@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { createStandaloneToast } from "@chakra-ui/react";
-const toast = createStandaloneToast();
+
+const { toast } = createStandaloneToast();
 
 export const loginUser = createAsyncThunk(
   "login/loginUser",
@@ -24,10 +25,16 @@ export const loginUser = createAsyncThunk(
 
       return response.data;
     } catch (error) {
-      const message = error.response?.data?.message || "Something went wrong";
+      let message = "Something went wrong";
+
+      if (axios.isAxiosError(error)) {
+        message = error.response?.data?.message || error.message || message;
+      } else if (error instanceof Error) {
+        message = error.message;
+      }
 
       toast({
-        title: "Error",
+        title: "Login Failed",
         description: message,
         status: "error",
         duration: 3000,
