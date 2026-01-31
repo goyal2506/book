@@ -3,13 +3,19 @@ import axios from "axios";
 
 export const loginUser = createAsyncThunk(
   "login/loginUser",
-  async (credentials, { rejectWithValue }) => {
+  async ({ email, password }, { rejectWithValue }) => {
     try {
-      const response = await axios.post("https://example.com/api/login", credentials);
+      const response = await axios.post(
+        "https://example.com/api/login",
+        { email, password },
+        { headers: { "Content-Type": "application/json" } }
+      );
 
-      return response.data;
+      localStorage.setItem("token", response.data.token);
+
+      return response.data; 
     } catch (error) {
-      return rejectWithValue(error.response.data || "Something went wrong");
+      return rejectWithValue(error.response?.data || "Something went wrong");
     }
   }
 );
@@ -18,7 +24,7 @@ const loginSlice = createSlice({
   name: "login",
   initialState: {
     user: null,
-    token: null,
+    token: localStorage.getItem("token") || null,
     loading: false,
     error: null,
   },
@@ -27,6 +33,7 @@ const loginSlice = createSlice({
       state.user = null;
       state.token = null;
       state.error = null;
+      localStorage.removeItem("token");
     },
   },
   extraReducers: (builder) => {

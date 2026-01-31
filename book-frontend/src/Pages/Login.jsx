@@ -28,7 +28,7 @@ const Login = () => {
   });
 
   const onSubmit = (data) => {
-    dispatch(loginUser(data));
+    dispatch(loginUser({email : data.email ,password: data.password}));
   };
 
   return (
