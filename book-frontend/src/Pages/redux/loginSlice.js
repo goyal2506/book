@@ -11,14 +11,14 @@ export const loginUser = createAsyncThunk(
         { headers: { "Content-Type": "application/json" } }
       );
 
-      localStorage.setItem("token", response.data.token);
 
-      return response.data; 
+      return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data || "Something went wrong");
     }
   }
 );
+
 
 const loginSlice = createSlice({
   name: "login",
