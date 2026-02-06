@@ -33,9 +33,19 @@ const Login = () => {
     formState: { errors, isValid },
   } = useForm({ mode: "onChange" });
 
-  const onSubmit = (data) => {
-    dispatch(loginUser({ email: data.email, password: data.password }));
+  const onSubmit = async (data) => {
+    try {
+      const resultAction = await dispatch(
+        loginUser({ email: data.email, password: data.password })
+      );
+      if (loginUser.fulfilled.match(resultAction)) {
+        navigate("/home");
+      }
+    } catch (err) {
+      console.error("Login error:", err);
+    }
   };
+
 
   return (
     <Flex minH="100vh" fontFamily="'Merriweather', serif" bg="#FDFBF7">

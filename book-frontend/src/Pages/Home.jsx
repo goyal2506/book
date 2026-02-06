@@ -1,9 +1,10 @@
-import { Box, Heading, Text, Button, HStack, SimpleGrid, Badge, Image, Flex, VStack, Icon } from "@chakra-ui/react";
+import { Box, Heading, Text, Button, HStack, SimpleGrid, Badge, Image, Flex, VStack, Icon, Container, Divider } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaShieldAlt, FaLock, FaGlobe } from "react-icons/fa";
 
 const Home = () => {
   const navigate = useNavigate();
+
   const collections = [
     {
       title: "First Editions",
@@ -52,288 +53,264 @@ const Home = () => {
   ];
 
   return (
-    <>
-      <Box
-        bg="#faf7f5"
-        px={10}
+    <Box bg="#FDFBF7" fontFamily="'Merriweather', serif">
+      {/* --- NAVBAR --- */}
+      <Flex
+        px={{ base: 6, md: 12 }}
         py={5}
+        align="center"
+        justify="space-between"
         borderBottom="1px solid"
-        borderColor="blackAlpha.100"
+        borderColor="rgba(0,0,0,0.05)"
+        bg="white"
+        position="sticky"
+        top="0"
+        zIndex="1000"
       >
-        <Flex align="center">
-          <Text
-            fontSize="xl"
-            fontWeight="bold"
-            letterSpacing="wide"
-            cursor="pointer"
-            onClick={() => navigate("/login")}
-          >
-            BookStore
-          </Text>
+        <Text
+          fontSize="2xl"
+          fontWeight="extrabold"
+          color="#5D4037"
+          letterSpacing="tighter"
+          cursor="pointer"
+          onClick={() => navigate("/")}
+        >
+          BookStore
+        </Text>
 
-          <HStack spacing={10} mx="auto">
-            {["Home", "Browse", "Profile"].map((item) => (
-              <Text
-                key={item}
-                fontSize="md"
-                fontWeight="medium"
-                cursor="pointer"
-                transition="0.2s"
-                _hover={{ color: "red.500" }}
-                onClick={() => navigate("/login")}
-              >
-                {item}
-              </Text>
-            ))}
-          </HStack>
+        <HStack spacing={10} display={{ base: "none", md: "flex" }}>
+          {["Home", "Browse", "Collections", "About"].map((item) => (
+            <Text
+              key={item}
+              fontSize="sm"
+              fontWeight="bold"
+              color="gray.600"
+              cursor="pointer"
+              _hover={{ color: "#D4AF37" }}
+              transition="0.2s"
+            >
+              {item}
+            </Text>
+          ))}
+        </HStack>
 
-          <Button
-            bg="red.500"
-            color="white"
-            px={6}
-            borderRadius="md"
-            _hover={{ bg: "red.600" }}
-            onClick={() => navigate("/login")}
-          >
-            Login
-          </Button>
-        </Flex>
-      </Box>
-      <Box bg="#faf7f5" px={10} py={10}>
+        <Button
+          bg="#5D4037"
+          color="white"
+          px={8}
+          borderRadius="full"
+          _hover={{ bg: "#3E2723", transform: "translateY(-2px)" }}
+          onClick={() => navigate("/login")}
+        >
+          Login
+        </Button>
+      </Flex>
+
+      {/* --- HERO SECTION --- */}
+      <Container maxW="container.xl" py={10}>
         <Box
           position="relative"
-          borderRadius="2xl"
+          borderRadius="3xl"
           overflow="hidden"
-          height={["60vh", "80vh"]}
-          cursor="default"
+          height={{ base: "50vh", md: "75vh" }}
+          boxShadow="2xl"
         >
           <Image
-            src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1200&q=80"
-            alt="Hero Background"
+            src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1500&q=80"
+            alt="Library"
             objectFit="cover"
             width="100%"
             height="100%"
-            transition="transform 0.5s"
-            _hover={{ transform: "scale(1.05)" }}
           />
           <Box
             position="absolute"
             inset="0"
-            bg="blackAlpha.600"
+            bgGradient="linear(to-b, rgba(26, 32, 44, 0.8), rgba(26, 32, 44, 0.4))"
             display="flex"
             alignItems="center"
             justifyContent="center"
             textAlign="center"
             px={6}
           >
-            <Box maxW="700px" color="white">
-              <Heading fontSize={["3xl", "5xl"]} fontWeight="bold" mb={4} lineHeight="1.2">
-                Discover the Timeless.
-                <br />
-                Own a Piece of History.
-              </Heading>
-              <Text fontSize={["md", "lg"]} opacity={0.9} mb={8}>
-                The premier destination for bibliophiles to trade rare, antique, and first edition manuscripts.
-              </Text>
-              <HStack spacing={4} justify="center">
-                <Button
-                  bg="red.500"
-                  color="white"
-                  size="lg"
-                  _hover={{ bg: "red.600", transform: "scale(1.05)" }}
-                  transition="all 0.3s"
-                  onClick={() => navigate("/login")}
-                >
-                  Start Buying
-                </Button>
-                <Button
-                  variant="outline"
-                  color="white"
-                  borderColor="white"
-                  size="lg"
-                  _hover={{ bg: "whiteAlpha.200", transform: "scale(1.05)" }}
-                  transition="all 0.3s"
-                  onClick={() => navigate("/login")}
-                >
-                  Start Selling
-                </Button>
-              </HStack>
-            </Box>
-          </Box>
-        </Box>
-      </Box>
-      <Box bg="#faf7f5">
-        <Box bg="#faf7f5" px={[6, 10, 14]} py={14} maxW="1500px" mx="auto">
-          <Box mb={20}>
-            <Flex justify="space-between" align="center" mb={8} flexWrap="wrap">
-              <Heading
-                fontSize={["2xl", "3xl"]}
-                fontStyle="italic"
-                letterSpacing="wide"
-                fontWeight="semibold"
-                mb={[4, 0]}
-              >
-                Browse Collections
-              </Heading>
-              <Text
-                color="red.500"
-                fontWeight="bold"
-                cursor="pointer"
-                userSelect="none"
-                onClick={() => navigate("/login")}
-                _hover={{ textDecoration: "underline", color: "red.600" }}
-                fontSize={["sm", "md"]}
-              >
-                VIEW ALL →
-              </Text>
-            </Flex>
-
-            <SimpleGrid columns={[1, 2, 3]} spacing={8}>
-              {collections.map((item, i) => (
-                <Box
-                  key={i}
-                  position="relative"
-                  borderRadius="2xl"
-                  overflow="hidden"
-                  cursor="pointer"
-                  transition="all 0.3s"
-                  _hover={{ transform: "scale(1.05)", boxShadow: "xl" }}
-                  onClick={() => navigate("/login")}
-                >
-                  <Image
-                    src={item.img}
-                    objectFit="cover"
-                    width="100%"
-                    height="280px"
-                    alt={item.title}
-                    loading="lazy"
-                  />
-                  <Box
-                    position="absolute"
-                    inset="0"
-                    bgGradient="linear(to-t, blackAlpha.700, transparent)"
-                    p={6}
-                    display="flex"
-                    flexDirection="column"
-                    justifyContent="flex-end"
-                    color="white"
-                  >
-                    <Heading fontSize="2xl" mb={1} lineHeight="short">{item.title}</Heading>
-                    <Text fontSize="md" opacity={0.85} noOfLines={2}>
-                      {item.desc}
-                    </Text>
-                  </Box>
-                </Box>
-              ))}
-            </SimpleGrid>
-          </Box>
-
-          <Box>
+          <VStack spacing={6} maxW="850px">
             <Heading
-              fontSize={["2xl", "3xl"]}
-              fontStyle="italic"
-              letterSpacing="wide"
-              fontWeight="semibold"
-              mb={10}
-              >
-              Featured Rare Finds
-              </Heading>
+              fontSize={{ base: "3xl", md: "6xl" }}
+              color="white"
+              lineHeight="1.1"
+              fontWeight="extrabold"
+              letterSpacing="tight"
+            >
+              Where Every Page Has a History. <br />
+              <Text as="span" bgGradient="linear(to-r, #F5E6CA, #D4AF37, #E1C16E)" bgClip="text">
+                Every Book a Soul.
+              </Text>
+            </Heading>
+            
+            <Text 
+              fontSize={{ base: "md", md: "xl" }} 
+              color="whiteAlpha.900" 
+              maxW="650px"
+              lineHeight="tall"
+              textShadow="1px 1px 4px rgba(0,0,0,0.4)"
+            >
+              Step into a sanctuary for bibliophiles. Discover, trade, and preserve 
+              rare treasures, antique manuscripts, and the first editions that shaped our world.
+            </Text>
 
-            <SimpleGrid columns={[1, 2, 4]} spacing={8}>
-              {featuredBooks.map((book, i) => (
-                <Box
-                  key={i}
-                  cursor="pointer"
-                  onClick={() => navigate("/login")}
-                  transition="all 0.3s"
-                  _hover={{ transform: "translateY(-5px)", boxShadow: "2xl" }}
-                  borderRadius="xl"
-                  bg="white"
-                  p={4}
-                  boxShadow="md"
-                >
-                  <Box position="relative" mb={4} borderRadius="xl" overflow="hidden">
-                    {book.tag && (
-                      <Badge
-                        position="absolute"
-                        top={3}
-                        right={3}
-                        bg="red.500"
-                        color="white"
-                        fontSize="0.75em"
-                        px={2}
-                        py={1}
-                        borderRadius="md"
-                        textTransform="uppercase"
-                      >
-                        {book.tag}
-                      </Badge>
-                    )}
-                    <Image
-                      src={book.img}
-                      alt={book.title}
-                      height="400px"
-                      width="100%"
-                      objectFit="cover"
-                      loading="lazy"
-                      borderRadius="xl"
-                    />
-                  </Box>
-                  <Text fontWeight="bold" fontSize="lg" noOfLines={1} mb={1}>
-                    {book.title}
-                  </Text>
-                  <Text fontSize="sm" color="gray.600" fontStyle="italic" noOfLines={1} mb={2}>
-                    {book.author}
-                  </Text>
-                  <Text fontWeight="bold" fontSize="md" color="red.600">
-                    {book.price}
-                  </Text>
-                </Box>
-              ))}
-            </SimpleGrid>
+            <HStack spacing={6} pt={4}>
+              <Button
+                bg="#D4AF37"
+                color="white"
+                size="lg"
+                px={10}
+                height="60px"
+                fontSize="lg"
+                _hover={{ bg: "#B8962E", transform: "translateY(-2px)" }}
+                boxShadow="lg"
+                onClick={() => navigate("/login")}
+              >
+                Explore the Vault
+              </Button>
+              <Button
+                variant="outline"
+                borderColor="white"
+                color="white"
+                size="lg"
+                px={10}
+                height="60px"
+                fontSize="lg"
+                _hover={{ bg: "whiteAlpha.200", transform: "translateY(-2px)" }}
+                onClick={() => navigate("/login")}
+              >
+                Consign a Classic
+              </Button>
+            </HStack>
+          </VStack>
           </Box>
         </Box>
-      </Box>
-      <Box bg="#f7e8e8" px={[6, 10, 20]} py={10} color="gray.700" fontSize="sm">
-        <Flex direction={["column", "row"]} justify="space-between" maxW="1200px" mx="auto" gap={[8, 0]}>
-          <Box flex="1" minW="200px">
-            <Text fontWeight="bold" fontSize="lg" color="red.600" mb={3}>
-              <span role="img" aria-label="book">📖</span> Book Store
-            </Text>
-            <Text color="red.500" fontStyle="italic" maxW="280px" lineHeight="1.5">
-              Connecting collectors and curators with the world's most significant literary artifacts. Established 2024.
-            </Text>
-          </Box>
+      </Container>
 
-          <VStack align="start" spacing={2} flex="1" minW="150px">
-            <Text fontWeight="bold" color="red.600" textTransform="uppercase" fontSize="sm" mb={2} letterSpacing="wider">Marketplace</Text>
-            {["How to Buy", "Sell Your Collection", "Authentication Process", "Shipping & Insurance"].map((item) => (
-              <Link key={item} href="#" color="gray.700" _hover={{ color: "red.600", textDecoration: "underline" }} fontSize="sm" cursor="pointer">{item}</Link>
-            ))}
+      {/* --- COLLECTIONS SECTION --- */}
+      <Container maxW="container.xl" py={20}>
+        <Flex justify="space-between" align="end" mb={10}>
+          <VStack align="start" spacing={0}>
+            <Text color="#D4AF37" fontWeight="bold" fontSize="sm" letterSpacing="widest">
+              CURATED SHELVES
+            </Text>
+            <Heading fontSize="4xl" color="#5D4037">Browse Collections</Heading>
           </VStack>
-
-          <VStack align="start" spacing={2} flex="1" minW="150px">
-            <Text fontWeight="bold" color="red.600" textTransform="uppercase" fontSize="sm" mb={2} letterSpacing="wider">Explore</Text>
-            {["New Arrivals", "Auction House", "Valuation Guide", "The Bibliophile Blog"].map((item) => (
-              <Link key={item} href="#" color="gray.700" _hover={{ color: "red.600", textDecoration: "underline" }} fontSize="sm" cursor="pointer">{item}</Link>
-            ))}
-          </VStack>
-
-          <Box flex="1" minW="200px" textAlign={["left", "right"]}>
-            <Text fontWeight="bold" color="red.600" textTransform="uppercase" fontSize="sm" mb={4} letterSpacing="wider">Trust & Safety</Text>
-            <HStack spacing={6} justify={["flex-start", "flex-end"]} mb={4} fontSize="lg" color="gray.600">
-              <Icon as={FaShieldAlt} />
-              <Icon as={FaLock} />
-              <Icon as={FaGlobe} />
-            </HStack>
-            <Text color="gray.500" fontSize="xs" maxW={["100%", "250px"]} marginLeft={["0", "auto"]}>
-              © 2024 RareLeaf Marketplace Inc. All rights reserved.<br />Images used for illustrative purposes.
-            </Text>
-          </Box>
+          <Button variant="link" color="#D4AF37" rightIcon={<Text>→</Text>} onClick={() => navigate("/login")}>
+            VIEW ALL
+          </Button>
         </Flex>
-      </Box>
-    </>
 
+        <SimpleGrid columns={{ base: 1, md: 3 }} spacing={10}>
+          {collections.map((item, i) => (
+            <Box
+              key={i}
+              group="true"
+              position="relative"
+              borderRadius="2xl"
+              overflow="hidden"
+              height="350px"
+              cursor="pointer"
+              transition="all 0.4s ease"
+              _hover={{ transform: "translateY(-10px)", boxShadow: "2xl" }}
+              onClick={() => navigate("/login")}
+            >
+              <Image src={item.img} w="100%" h="100%" objectFit="cover" />
+              <Box
+                position="absolute"
+                inset="0"
+                bgGradient="linear(to-t, rgba(0,0,0,0.8), transparent)"
+                p={8}
+                display="flex"
+                flexDirection="column"
+                justifyContent="flex-end"
+              >
+                <Heading size="lg" color="white" mb={2}>{item.title}</Heading>
+                <Text color="whiteAlpha.800" fontSize="sm">{item.desc}</Text>
+              </Box>
+            </Box>
+          ))}
+        </SimpleGrid>
+      </Container>
+
+      {/* --- FEATURED FINDS --- */}
+      <Box bg="#F3EFE9" py={20}>
+        <Container maxW="container.xl">
+          <Heading textAlign="center" mb={16} color="#5D4037" fontStyle="italic">Featured Rare Finds</Heading>
+          <SimpleGrid columns={{ base: 1, sm: 2, lg: 4 }} spacing={8}>
+            {featuredBooks.map((book, i) => (
+              <Box
+                key={i}
+                bg="white"
+                p={5}
+                borderRadius="xl"
+                boxShadow="lg"
+                transition="0.3s"
+                _hover={{ transform: "scale(1.02)" }}
+                onClick={() => navigate("/login")}
+                cursor="pointer"
+              >
+                <Box position="relative" mb={4} borderRadius="lg" overflow="hidden">
+                  {book.tag && (
+                    <Badge position="absolute" top={3} right={3} bg="#D4AF37" color="white" px={3} py={1} borderRadius="md">
+                      {book.tag}
+                    </Badge>
+                  )}
+                  <Image src={book.img} h="350px" w="100%" objectFit="cover" />
+                </Box>
+                <VStack align="start" spacing={1}>
+                  <Text fontWeight="bold" fontSize="lg" color="#5D4037">{book.title}</Text>
+                  <Text fontSize="sm" color="gray.500">{book.author}</Text>
+                  <Text fontWeight="extrabold" color="#D4AF37" pt={2}>{book.price}</Text>
+                </VStack>
+              </Box>
+            ))}
+          </SimpleGrid>
+        </Container>
+      </Box>
+
+      {/* --- FOOTER --- */}
+      <Box bg="#5D4037" py={16} color="whiteAlpha.800">
+        <Container maxW="container.xl">
+          <SimpleGrid columns={{ base: 1, md: 4 }} spacing={12}>
+            <VStack align="start" spacing={4}>
+              <Text fontSize="2xl" fontWeight="bold" color="#F5E6CA">BookStore</Text>
+              <Text fontSize="sm" fontStyle="italic">
+                "Give Books One More Chapter." Connecting collectors with the world's most significant literary artifacts.
+              </Text>
+            </VStack>
+            
+            <VStack align="start">
+              <Text color="white" fontWeight="bold" mb={2}>Marketplace</Text>
+              <Link>Authentication</Link>
+              <Link>Buying Guide</Link>
+              <Link>Selling Books</Link>
+            </VStack>
+
+            <VStack align="start">
+              <Text color="white" fontWeight="bold" mb={2}>Trust</Text>
+              <HStack spacing={4}>
+                <Icon as={FaShieldAlt} boxSize={5} color="#D4AF37" />
+                <Icon as={FaLock} boxSize={5} color="#D4AF37" />
+                <Icon as={FaGlobe} boxSize={5} color="#D4AF37" />
+              </HStack>
+            </VStack>
+
+            <VStack align={{ base: "start", md: "end" }}>
+              <Text color="white" fontWeight="bold" mb={2}>Newsletter</Text>
+              <Text fontSize="xs">Join our list for rare arrival alerts.</Text>
+            </VStack>
+          </SimpleGrid>
+          <Divider mt={10} borderColor="whiteAlpha.200" />
+          <Text textAlign="center" mt={8} fontSize="xs">
+            © 2026 RareLeaf Marketplace Inc. All rights reserved.
+          </Text>
+        </Container>
+      </Box>
+    </Box>
   );
 };
 
