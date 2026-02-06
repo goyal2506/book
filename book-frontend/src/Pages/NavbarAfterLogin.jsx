@@ -12,30 +12,29 @@ import {
   Box,
 } from "@chakra-ui/react";
 import { FiShoppingCart, FiMessageSquare, FiLogOut } from "react-icons/fi";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const NavbarAfterLogin = () => {
   const navigate = useNavigate();
-const name = localStorage.getItem("name");
+  const location = useLocation();
+
+  const name = localStorage.getItem("name");
+  const role = localStorage.getItem("role");
 
   const user = {
-    name: name || 'Book Lover',
+    name: name || "Book Lover",
     avatar: "https://i.pravatar.cc/150?img=3",
   };
 
-  // Navigation links
-const role = localStorage.getItem("role");
-
-const navItems = [
-  { label: "Home", path: "/home" },
-  { label: "Browse", path: "/browse" },
-  { label: "Collections", path: "/collection" },
-  { label: "About", path: "/about" },
-  ...(role === "seller"
-    ? [{ label: "Upload Book", path: "/upload" }]
-    : []),
-];
-
+  const navItems = [
+    { label: "Home", path: "/home" },
+    { label: "Browse", path: "/browse" },
+    { label: "Collections", path: "/collection" },
+    { label: "About", path: "/about" },
+    ...(role === "seller"
+      ? [{ label: "Upload Book", path: "/upload" }]
+      : []),
+  ];
 
   return (
     <Flex
@@ -57,32 +56,40 @@ const navItems = [
         color="#5D4037"
         letterSpacing="tighter"
         cursor="pointer"
-        onClick={() => navigate("/")}
+        onClick={() => navigate("/home")}
       >
         BookStore
       </Text>
 
       {/* Nav Links */}
       <HStack spacing={10} display={{ base: "none", md: "flex" }}>
-        {navItems.map((item) => (
-          <Text
-            key={item.label}
-            fontSize="sm"
-            fontWeight="bold"
-            color="gray.600"
-            cursor="pointer"
-            _hover={{ color: "#D4AF37" }}
-            transition="0.2s"
-            onClick={() => navigate(item.path)}
-          >
-            {item.label}
-          </Text>
-        ))}
+        {navItems.map((item) => {
+          const isActive = location.pathname === item.path;
+
+          return (
+            <Text
+              key={item.label}
+              fontSize="sm"
+              fontWeight="bold"
+              cursor="pointer"
+              color={isActive ? "#D4AF37" : "gray.600"}
+              borderBottom={
+                isActive ? "2px solid #D4AF37" : "2px solid transparent"
+              }
+              pb="2px"
+              _hover={{ color: "#D4AF37" }}
+              transition="0.2s"
+              onClick={() => navigate(item.path)}
+            >
+              {item.label}
+            </Text>
+          );
+        })}
       </HStack>
 
       {/* Right Section */}
       <HStack spacing={4}>
-        {/* Message Icon */}
+        {/* Messages */}
         <IconButton
           icon={<FiMessageSquare />}
           variant="ghost"
@@ -92,7 +99,7 @@ const navItems = [
           onClick={() => navigate("/messages")}
         />
 
-        {/* Cart Icon */}
+        {/* Cart */}
         <IconButton
           icon={<FiShoppingCart />}
           variant="ghost"
@@ -102,7 +109,7 @@ const navItems = [
           onClick={() => navigate("/cart")}
         />
 
-        {/* Profile Menu */}
+        {/* Profile */}
         <Menu>
           <MenuButton>
             <Avatar
@@ -124,8 +131,8 @@ const navItems = [
             <MenuItem
               icon={<FiLogOut />}
               onClick={() => {
-                localStorage.removeItem("token"); // remove token
-                navigate("/login"); // redirect to login
+                localStorage.removeItem("token");
+                navigate("/login");
               }}
             >
               Logout
