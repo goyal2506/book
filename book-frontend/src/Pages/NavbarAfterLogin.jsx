@@ -23,12 +23,18 @@ const NavbarAfterLogin = () => {
   };
 
   // Navigation links
-  const navItems = [
-    { label: "Home", path: "/home" },
-    { label: "Browse", path: "/browse" },
-    { label: "Collections", path: "/collection" },
-    { label: "About", path: "/about" },
-  ];
+const role = localStorage.getItem("role");
+
+const navItems = [
+  { label: "Home", path: "/home" },
+  { label: "Browse", path: "/browse" },
+  { label: "Collections", path: "/collection" },
+  { label: "About", path: "/about" },
+  ...(role === "seller"
+    ? [{ label: "Upload Book", path: "/upload" }]
+    : []),
+];
+
 
   return (
     <Flex
