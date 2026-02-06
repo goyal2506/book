@@ -1,7 +1,8 @@
+import NavbarAfterLogin from "./NavbarAfterLogin"
 
 const HomePageLogin = () => {
   return (
-    <div>User Can Home Page after login </div>
+    <NavbarAfterLogin/>
   )
 }
 
