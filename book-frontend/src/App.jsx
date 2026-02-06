@@ -1,10 +1,11 @@
 import { Button, VStack } from "@chakra-ui/react";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
+import Navbar from "./Pages/Navbar";
+import Home from "./Pages/Home";
 
 function App() {
-  const navigate = useNavigate();
 
   return (
     <Routes>
@@ -13,14 +14,10 @@ function App() {
       <Route
         path="/"
         element={
-          <VStack spacing={4} mt={10}>
-            <Button colorScheme="blue" onClick={() => navigate("/login")}>
-              Login
-            </Button>
-            <Button colorScheme="green" onClick={() => navigate("/signup")}>
-              Sign Up
-            </Button>
-          </VStack>
+          <>
+            <Navbar />
+            <Home/>
+          </>
         }
       />
     </Routes>
