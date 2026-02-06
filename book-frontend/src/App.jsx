@@ -11,6 +11,7 @@ import SchoolGradeCollections from "./Pages/SchoolCollection";
 import Browse from "./Pages/Browse";
 import About from "./Pages/About";
 import CollegeCourseCollections from "./Pages/CollageCollection";
+import UploadBook from "./Pages/UploadBook";
 
 function App() {
 
@@ -35,6 +36,8 @@ function App() {
       <Route path="/collection" element={<ProtectedRoute><CollectionsPage /></ProtectedRoute>} />
       <Route path="/browse" element={<ProtectedRoute><Browse /></ProtectedRoute>} />
       <Route path="/about" element={<ProtectedRoute><About /></ProtectedRoute>} />
+      <Route path="/upload" element={<ProtectedRoute><UploadBook /></ProtectedRoute>} />
+
       <Route path="/collection/school" element={<ProtectedRoute><SchoolGradeCollections /></ProtectedRoute>} />
       <Route path="/collection/college" element={<ProtectedRoute><CollegeCourseCollections /></ProtectedRoute>} />
 
