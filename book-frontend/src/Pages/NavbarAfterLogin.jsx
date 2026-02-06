@@ -16,9 +16,10 @@ import { useNavigate } from "react-router-dom";
 
 const NavbarAfterLogin = () => {
   const navigate = useNavigate();
+const name = localStorage.getItem("name");
 
   const user = {
-    name: "John Doe",
+    name: name || 'Book Lover',
     avatar: "https://i.pravatar.cc/150?img=3",
   };
 
