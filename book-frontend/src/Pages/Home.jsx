@@ -1,10 +1,18 @@
 import { Box, Heading, Text, Button, HStack, SimpleGrid, Badge, Image, Flex, VStack, Icon, Container, Divider } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaShieldAlt, FaLock, FaGlobe } from "react-icons/fa";
+import { useEffect } from "react";
 
 const Home = () => {
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      // If token exists, redirect to /home
+      navigate("/home");
+    }
+  }, [navigate]);
   const collections = [
     {
       title: "First Editions",

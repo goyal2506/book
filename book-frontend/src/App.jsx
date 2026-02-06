@@ -8,6 +8,8 @@ import HomePageLogin from "./Pages/HomePageLogin";
 import ProtectedRoute from "./Pages/ProtectedRoute";
 import CollectionsPage from "./Pages/Collection";
 import SchoolGradeCollections from "./Pages/SchoolCollection";
+import Browse from "./Pages/Browse";
+import About from "./Pages/About";
 
 function App() {
 
@@ -30,7 +32,8 @@ function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/collection" element={<ProtectedRoute><CollectionsPage /></ProtectedRoute>} />
-      <Route path="/collection/school" element={<ProtectedRoute><SchoolGradeCollections /></ProtectedRoute>} />
+      <Route path="/browse" element={<ProtectedRoute><Browse /></ProtectedRoute>} />
+      <Route path="/about" element={<ProtectedRoute><About /></ProtectedRoute>} />
       <Route
         path="/home"
         element={
